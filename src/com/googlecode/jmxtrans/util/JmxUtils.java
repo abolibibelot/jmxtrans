@@ -632,17 +632,41 @@ public class JmxUtils {
 	 * @return the key string
 	 */
 	public static String getKeyString(Query query, Result result, Entry<String, Object> values, List<String> typeNames, String rootPrefix) {
-		StringBuilder sb = new StringBuilder();
-		addRootPrefix(rootPrefix, sb);
-		addAlias(query, sb);
-		sb.append(".");
-		// Allow people to use something other than the classname as the output.
-		addClassName(result, sb);
-		sb.append(".");
-		addTypeName(query, result, typeNames, sb);
-		addKeyString(result, values, sb);
-		return sb.toString();
+        return getKeyString(query, result, values, typeNames, rootPrefix, null);
 	}
+
+    /**
+     * Gets the key string.
+     *
+     * @param query
+     *            the query
+     * @param result
+     *            the result
+     * @param values
+     *            the values
+     * @param typeNames
+     *            the type names
+     * @param rootPrefix
+     *            the root prefix
+     * @param keySuffix
+     *            the suffix to add to the key
+     *
+     * @return the key string
+     *
+     */
+    public static String getKeyString(Query query, Result result, Entry<String, Object> values, List<String> typeNames, String rootPrefix, String keySuffix) {
+        StringBuilder sb = new StringBuilder();
+        addRootPrefix(rootPrefix, sb);
+        addAlias(query, sb);
+        sb.append(".");
+        // Allow people to use something other than the classname as the output.
+        addClassName(result, sb);
+        sb.append(".");
+        addTypeName(query, result, typeNames, sb);
+        addKeyString(result, values, sb);
+        addKeySuffix(keySuffix, sb);
+        return sb.toString();
+    }
 
 	/**
 	 * Gets the key string, without rootPrefix nor Alias
@@ -694,6 +718,12 @@ public class JmxUtils {
 			sb.append(".");
 		}
 	}
+
+    private static void addKeySuffix(String keySuffix, StringBuilder sb) {
+        if (keySuffix != null) {
+            sb.append(keySuffix);
+        }
+    }
 
 	private static void addAlias(Query query, StringBuilder sb) {
 		String alias;

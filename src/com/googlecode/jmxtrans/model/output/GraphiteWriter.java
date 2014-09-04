@@ -38,10 +38,12 @@ public class GraphiteWriter extends BaseOutputWriter {
 
 	private static final Logger log = LoggerFactory.getLogger(GraphiteWriter.class);
 	public static final String ROOT_PREFIX = "rootPrefix";
+    public static final String KEY_SUFFIX = "keySuffix";
 	
 	private String host;
 	private Integer port;
 	private String rootPrefix = "servers";
+    private String keySuffix = null;
 
 	private static KeyedObjectPool pool = null;
 	private static AtomicInteger activeServers = new AtomicInteger(0);
@@ -123,7 +125,10 @@ public class GraphiteWriter extends BaseOutputWriter {
 		if (rootPrefixTmp != null) {
 			rootPrefix = rootPrefixTmp;
 		}
-
+        String keySuffixTmp = (String) this.getSettings().get(KEY_SUFFIX);
+        if (keySuffixTmp != null) {
+            keySuffix = keySuffixTmp;
+        }
 		this.address = new InetSocketAddress(host, port);
 	}
 
@@ -159,7 +164,7 @@ public class GraphiteWriter extends BaseOutputWriter {
 						if (JmxUtils.isNumeric(value)) {
 							StringBuilder sb = new StringBuilder();
 
-							sb.append(JmxUtils.getKeyString(query, result, values, typeNames, rootPrefix).replaceAll("[()]", "_"));
+							sb.append(JmxUtils.getKeyString(query, result, values, typeNames, rootPrefix, keySuffix).replaceAll("[()]", "_"));
 
 							sb.append(" ");
 							sb.append(value.toString());
