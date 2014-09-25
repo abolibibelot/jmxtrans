@@ -4,6 +4,7 @@ import com.googlecode.jmxtrans.model.Query;
 import com.googlecode.jmxtrans.model.Result;
 import com.googlecode.jmxtrans.util.BaseOutputWriter;
 import com.googlecode.jmxtrans.util.JmxUtils;
+import com.googlecode.jmxtrans.util.NumberUtils;
 import com.googlecode.jmxtrans.util.ValidationException;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
@@ -25,7 +26,7 @@ import java.util.Map.Entry;
  */
 public class Log4JWriter extends BaseOutputWriter
 {
-	private static Logger LOG;
+	private Logger log;
 
 	/** */
 	public Log4JWriter() { }
@@ -42,7 +43,7 @@ public class Log4JWriter extends BaseOutputWriter
 			loggerName = "Log4JWriter";
 		}
 
-		LOG = Logger.getLogger("Log4JWriter." + loggerName);
+		log = Logger.getLogger("Log4JWriter." + loggerName);
 	}
 
 	/**
@@ -59,7 +60,7 @@ public class Log4JWriter extends BaseOutputWriter
 			{
 				for (final Entry<String, Object> values : resultValues.entrySet())
 				{
-					if (JmxUtils.isNumeric(values.getValue()))
+					if (NumberUtils.isNumeric(values.getValue()))
 					{
 						String alias = null;
 						if (query.getServer().getAlias() != null)
@@ -82,7 +83,7 @@ public class Log4JWriter extends BaseOutputWriter
 						MDC.put("attributeName", result.getAttributeName());
 						MDC.put("key", values.getKey());
 						MDC.put("Epoch", String.valueOf(result.getEpoch()));
-						LOG.info("");
+						log.info("");
 					}
 				}
 			}
