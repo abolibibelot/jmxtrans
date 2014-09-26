@@ -355,7 +355,7 @@ public class JmxUtils {
 	 * Gets the object pool. TODO: Add options to adjust the pools, this will be
 	 * better performance on high load
 	 *
-	 * @param <T>     the generic type
+	 * @param <T>	 the generic type
 	 * @param factory the factory
 	 * @return the object pool
 	 */
@@ -415,56 +415,56 @@ public class JmxUtils {
 	/**
 	 * Gets the key string.
 	 *
-	 * @param query      the query
-	 * @param result     the result
-	 * @param values     the values
+	 * @param query	  the query
+	 * @param result	 the result
+	 * @param values	 the values
 	 * @param typeNames  the type names
 	 * @param rootPrefix the root prefix
 	 * @return the key string
 	 */
 	public static String getKeyString(Query query, Result result, Entry<String, Object> values, List<String> typeNames, String rootPrefix) {
-        return getKeyString(query, result, values, typeNames, rootPrefix, null);
+		return getKeyString(query, result, values, typeNames, rootPrefix, null);
 	}
 
-    /**
-     * Gets the key string.
-     *
-     * @param query
-     *            the query
-     * @param result
-     *            the result
-     * @param values
-     *            the values
-     * @param typeNames
-     *            the type names
-     * @param rootPrefix
-     *            the root prefix
-     * @param keySuffix
-     *            the suffix to add to the key
-     *
-     * @return the key string
-     *
-     */
-    public static String getKeyString(Query query, Result result, Entry<String, Object> values, List<String> typeNames, String rootPrefix, String keySuffix) {
-        StringBuilder sb = new StringBuilder();
-        addRootPrefix(rootPrefix, sb);
-        addAlias(query, sb);
-        sb.append(".");
-        // Allow people to use something other than the classname as the output.
-        addClassName(result, sb);
-        sb.append(".");
-        addTypeName(query, result, typeNames, sb);
-        addKeyString(result, values, sb);
-        addKeySuffix(keySuffix, sb);
-        return sb.toString();
-    }
+	/**
+	 * Gets the key string.
+	 *
+	 * @param query
+	 *			the query
+	 * @param result
+	 *			the result
+	 * @param values
+	 *			the values
+	 * @param typeNames
+	 *			the type names
+	 * @param rootPrefix
+	 *			the root prefix
+	 * @param keySuffix
+	 *			the suffix to add to the key
+	 *
+	 * @return the key string
+	 *
+	 */
+	public static String getKeyString(Query query, Result result, Entry<String, Object> values, List<String> typeNames, String rootPrefix, String keySuffix) {
+		StringBuilder sb = new StringBuilder();
+		addRootPrefix(rootPrefix, sb);
+		addAlias(query, sb);
+		sb.append(".");
+		// Allow people to use something other than the classname as the output.
+		addClassName(result, sb);
+		sb.append(".");
+		addTypeName(query, result, typeNames, sb);
+		addKeyString(result, values, sb);
+		addKeySuffix(keySuffix, sb);
+		return sb.toString();
+	}
 
 	/**
 	 * Gets the key string, without rootPrefix nor Alias
 	 *
-	 * @param query     the query
-	 * @param result    the result
-	 * @param values    the values
+	 * @param query	 the query
+	 * @param result	the result
+	 * @param values	the values
 	 * @param typeNames the type names
 	 * @return the key string
 	 */
@@ -480,9 +480,9 @@ public class JmxUtils {
 	/**
 	 * Gets the key string, with dot allowed
 	 *
-	 * @param query     the query
-	 * @param result    the result
-	 * @param values    the values
+	 * @param query	 the query
+	 * @param result	the result
+	 * @param values	the values
 	 * @param typeNames the type names
 	 * @return the key string
 	 */
@@ -502,11 +502,11 @@ public class JmxUtils {
 		}
 	}
 
-    private static void addKeySuffix(String keySuffix, StringBuilder sb) {
-        if (keySuffix != null) {
-            sb.append(keySuffix);
-        }
-    }
+	private static void addKeySuffix(String keySuffix, StringBuilder sb) {
+		if (keySuffix != null) {
+			sb.append(keySuffix);
+		}
+	}
 
 	private static void addAlias(Query query, StringBuilder sb) {
 		String alias;
@@ -625,7 +625,7 @@ public class JmxUtils {
 	 * If you addTypeName("name"), then it'll retrieve 'PS Eden Space' from the
 	 * string
 	 *
-	 * @param query     the query
+	 * @param query	 the query
 	 * @param typeNames the type names
 	 * @param typeName  the type name
 	 * @return the concated type name values

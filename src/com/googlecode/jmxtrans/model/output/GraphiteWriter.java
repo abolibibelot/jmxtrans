@@ -40,7 +40,7 @@ import static com.google.common.base.Charsets.UTF_8;
  * in the Graphite format.
  *
  * @see <a
- *      href="http://graphite.wikidot.com/getting-your-data-into-graphite">http://graphite.wikidot.com/getting-your-data-into-graphite</a>
+ *	  href="http://graphite.wikidot.com/getting-your-data-into-graphite">http://graphite.wikidot.com/getting-your-data-into-graphite</a>
  *
  * @author jon
  */
@@ -48,12 +48,12 @@ public class GraphiteWriter extends BaseOutputWriter {
 
 	private static final Logger log = LoggerFactory.getLogger(GraphiteWriter.class);
 	public static final String ROOT_PREFIX = "rootPrefix";
-    public static final String KEY_SUFFIX = "keySuffix";
+	public static final String KEY_SUFFIX = "keySuffix";
 	
 	private String host;
 	private Integer port;
 	private String rootPrefix = "servers";
-    private String keySuffix = null;
+	private String keySuffix = null;
 
 	private static KeyedObjectPool pool = null;
 	private static AtomicInteger activeServers = new AtomicInteger(0);
@@ -135,10 +135,10 @@ public class GraphiteWriter extends BaseOutputWriter {
 		if (rootPrefixTmp != null) {
 			rootPrefix = rootPrefixTmp;
 		}
-        String keySuffixTmp = (String) this.getSettings().get(KEY_SUFFIX);
-        if (keySuffixTmp != null) {
-            keySuffix = keySuffixTmp;
-        }
+		String keySuffixTmp = (String) this.getSettings().get(KEY_SUFFIX);
+		if (keySuffixTmp != null) {
+			keySuffix = keySuffixTmp;
+		}
 		this.address = new InetSocketAddress(host, port);
 	}
 
